@@ -1,0 +1,60 @@
+Game states:
+     pickleable
+     code agnostic to whether in memory the whole time or reconstituted
+     collection of board states + game id, player names, winner = null
+     draw offer status
+     bans, roster
+     game mode [random/all pick/draft/..?]
+     game type [unranked/ranked/..?]
+     received input
+     input timer
+     public?
+
+Board states:
+      filtered for player-specific info and sent for display
+      3xturns stored for each game state, for complete history
+      	 browse by turn, then phase
+      incl. log text of what happened just BEFORE
+      character positions, hp, status
+      object positions
+
+Draft:
+      bans and picks generate no board states
+      each ban/pick treated as phase of turn 0 for browsing/rewinding
+
+
+Meta functions:
+     leave
+	after period of inactivity, pickle and update games db
+
+     resume(id)
+     	id in session/cookie or url
+	   
+     rewind(turn, phase)
+     	if both players submit a rewind request, branch game state to most recent requested. generate new id, keep old and leave it. 
+	if winner not null and type ranked, set type unranked
+	set winner = null
+	support rewind(this turn, this phase) for immediate branching
+
+     surrender
+	set winner
+     
+     offer draw
+        if both do, set winner
+
+     rescind draw offer
+     	trivial
+
+     gift
+	give your seat in this game to someone else
+	if ranked:
+	   surrender, rewind 0 first
+
+     clone
+	start a game with history copied from up to what you're viewing and invite someone
+     	set type unranked
+
+	
+
+	   
+      
