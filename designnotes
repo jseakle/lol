@@ -23,6 +23,11 @@ Draft:
       each ban/pick treated as phase of turn 0 for browsing/rewinding
 
 
+Movement
+      teleports
+      validation handler, resolution handler
+             validation gets board before all moves and returns where you end up, resolution gets board after all moves
+
 Meta functions:
      leave
 	after period of inactivity, pickle and update games db
